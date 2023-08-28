@@ -11,6 +11,84 @@
   </head>
 
   <body>
+    <header>
+      <% if admin_signed_in? %>
+      <h1>管理者ログイン時</h1>
+<%
+=begin
+%>
+        <li>
+          <%= link_to "商品一覧", %>
+        </li>
+        <li>
+          <%= link_to "会員一覧", %>
+        </li>
+        <li>
+          <%= link_to "注文履歴一覧", %>
+        </li>
+        <li>
+          <%= link_to "ジャンル一覧", %>
+        </li>
+<%
+=end
+%>
+        <li>
+          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+        </li>
+        <% elsif customer_signed_in?%>
+        <h1>顧客ログイン時</h1>
+<%
+=begin
+%>
+        <li>
+          <%= link_to "マイページ", %>
+        </li>
+<%
+=end
+%>
+        <li>
+          <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
+        </li>
+<%
+=begin
+%>
+        <li>
+          <%= link_to "商品一覧", %>
+        </li>
+        <li>
+          <%= link_to "カート", %>
+        </li>
+<%
+=end
+%>
+        <% else %>
+<%
+=begin
+%>
+        <li>
+          <%= link_to "About", %>
+        </li>
+<%
+=end
+%>
+        <h1>顧客ログアウト時</h1>
+        <li>
+          <%= link_to "新規登録", new_customer_registration_path %>
+        </li>
+        <li>
+          <%= link_to "ログイン", new_customer_session_path%>
+        </li>
+<%
+=begin
+%>
+        <li>
+          <%= link_to "商品一覧", %>
+        </li>
+<%
+=end
+%>
+      <% end %>
+    </header>
     <%= yield %>
   </body>
 </html>
