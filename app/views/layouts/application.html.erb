@@ -37,15 +37,10 @@
         </li>
         <% elsif customer_signed_in?%>
         <h1>顧客ログイン時</h1>
-<%
-=begin
-%>
+
         <li>
-          <%= link_to "マイページ", %>
+          <%= link_to "マイページ", customers_mypage_path %>
         </li>
-<%
-=end
-%>
         <li>
           <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
         </li>

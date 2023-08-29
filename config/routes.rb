@@ -12,6 +12,9 @@ get '/admins/sgin_in' => 'admin/session#new'
 get '/customers/sign_in' => 'public/session#new'
 get '/customers/mypage' => 'public/customers#show'
 get '/customers/information/edit' => 'public/customers#edit'
+patch '/customers/information' => 'public/customers#update'
+get '/customers/confirm_withdraw' => 'public/customers#check'
+patch '/customers/withdraw' => 'public/customers#withdrawal'
 get '/orders' => 'public/orders#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
