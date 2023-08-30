@@ -57,16 +57,10 @@
 =end
 %>
         <% else %>
-<%
-=begin
-%>
-        <li>
-          <%= link_to "About", %>
-        </li>
-<%
-=end
-%>
         <h1>顧客ログアウト時</h1>
+        <li>
+          <%= link_to "About", about_path %>
+        </li>
         <li>
           <%= link_to "新規登録", new_customer_registration_path %>
         </li>
