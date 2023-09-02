@@ -18,15 +18,15 @@
               <th>税抜価格</th>
             </tr>
           </thead>
-          <% @items.each do |item| %>
           <tbody>
+          <% @items.each do |item| %>
             <tr>
-              <tb class="align-middle"><%= item.id %></tb>
-              <tb class="align-middle"><%= link_to admin_item_path(item.id) do %>
+              <th class="align-middle"><%= item.id %></th>
+              <th class="align-middle"><%= link_to admin_item_path(item.id) do %>
                 <u><%= item.name %></u>
-              </tb>
+              </th>
               <% end %>
-              <tb class="align-middle"><%= item.price %></tb>
+              <th class="align-middle"><%= item.price %></th>
             </tr>
           </tbody>
           <% end %>

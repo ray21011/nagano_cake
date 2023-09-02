@@ -5,7 +5,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://kit.fontawesome.com/feced20622.js" crossorigin="anonymous"></script>
   </head>
@@ -16,77 +16,93 @@
         <div class="container">
           <a class="navbar-brand" href="/">ロゴ</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>  
+            <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
-      <% if admin_signed_in? %>
-      <h1>管理者ログイン時</h1>
-        <li>
-          <%= link_to "商品一覧", admin_items_path %>
-        </li>
+              <% if admin_signed_in? %>
+                <li class="nav-item">
+                  <%= link_to admin_items_path do %>
+                    <i class="fas fs-cookie-bite">商品一覧</i>
+                  <% end %>
+                </li>
 <%
 =begin
 %>
-        <li>
-          <%= link_to "会員一覧", %>
-        </li>
-        <li>
-          <%= link_to "注文履歴一覧", %>
-        </li>
+                <li class="nav-item">
+                  <%= link_to admin_customers_path do %>
+                    <i class="fas fa-users">会員一覧</i>
+                  <% end %>
+                </li>
 <%
 =end
 %>
-        <li>
-          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-        </li>
-        <% elsif customer_signed_in?%>
-        <h1>顧客ログイン時</h1>
-
-        <li>
-          <%= link_to "マイページ", customers_mypage_path %>
-        </li>
-        <li>
-          <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-        </li>
+                <li class="nav-item">
+                  <%= link_to admin_path do %>
+                    <i class="fas fa-clipboard-list">注文履歴一覧</i>
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to  destroy_admin_session_path, method: :delete do %>
+                    <i class="fas fa-sign-out-alt">ログアウト</i>
+                  <% end %>
+                </li>
+              <% elsif customer_signed_in? %>
+                <li class="nav-item">
+                  <%= link_to customers_mypage_path do %>
+                    <i class="fas fa-user-circle">マイページ</i>
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to destroy_customer_session_path, method: :delete do %>
+                    <i class="fas fa-sign-out-alt">ログアウト</i>
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to items_path do %>
+                    <i class="fas fa-cookie-bite">商品一覧</i>
+                  <% end %>
+                </li>
 <%
 =begin
 %>
-        <li>
-          <%= link_to "商品一覧", %>
-        </li>
-        <li>
-          <%= link_to "カート", %>
-        </li>
+                <li class="nav-item">
+                  <%= link_to cart_item_path do %>
+                    <i class="fas fa-shopping-cart">カート</i>
+                  <% end %>
+                </li>
 <%
 =end
 %>
-        <% else %>
-        <h1>顧客ログアウト時</h1>
-        <li>
-          <%= link_to "About", about_path %>
-        </li>
-        <li>
-          <%= link_to "新規登録", new_customer_registration_path %>
-        </li>
-        <li>
-          <%= link_to "ログイン", new_customer_session_path%>
-        </li>
-<%
-=begin
-%>
-        <li>
-          <%= link_to "商品一覧", %>
-        </li>
-<%
-=end
-%>
-      <% end %>
-      </ul>
-      </div>
-      </div>
+              <% else %>
+                <li class="nav-item">
+                  <%= link_to about_path do %>
+                    <i class="fas fa-store-alt">About</i>
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to new_customer_registration_path do %>
+                    <i class="fas fa-user-plus">新規登録</i>
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to new_customer_session_path do %>
+                    <i class="fas fa-user">ログイン</i>
+                  <% end %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to items_path do %>
+                    <i class="fas fa-cookie-bite">商品一覧</i>
+                  <% end %>
+                </li>
+              <% end %>
+              </ul>
+            </div>
+          </div>
       </nav>
     </header>
+    <main>
     <%= yield %>
+    </main>
   </body>
 </html>

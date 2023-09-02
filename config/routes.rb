@@ -17,7 +17,7 @@ get '/admins/sgin_in' => 'admin/session#new'
 }
 
 scope module: :public do
-  resources :item, only: [:index, :show]
+  resources :items, only: [:index, :show]
 end
 get '/customers/sign_in' => 'public/session#new'
 get '/customers/mypage' => 'public/customers#show'
