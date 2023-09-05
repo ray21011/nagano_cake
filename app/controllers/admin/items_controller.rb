@@ -9,6 +9,7 @@ class Admin::ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
+    
     if @item.save!
       flash.now[:success] = "商品の新規登録が完了しました。"
       redirect_to admin_item_path(@item)
@@ -40,7 +41,6 @@ class Admin::ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name, :introduction, :price)
+    params.require(:item).permit(:name, :introduction, :price, :image)
   end
 end
-#:image,

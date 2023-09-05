@@ -8,12 +8,12 @@
     <div class="col-sm-10 px-sm-0 mx-auto">
       <%= form_with model: @item, url: admin_item_path, local: true do |f| %>
       <table>
-        <!--<tr>-->
-        <!--  <div class="form-group">-->
-        <!--    <th><%#= f.label :商品画像 %></th>-->
-        <!--    <tb><%#= f.attachment_field :image %></tb>-->
-        <!--  </div>-->
-        <!--</tr>-->
+        <tr>
+          <div class="form-group">
+            <th><%= f.label :商品画像 %></th>
+            <tb><%= f.file_field :image %></tb>
+          </div>
+        </tr>
         <tr>
           <div class="form-group">
             <th><%= f.label :商品名 %></th>
