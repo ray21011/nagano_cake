@@ -8,6 +8,7 @@ get '/admin' => 'admin/homes#top'
 
 namespace :admin do
   resources :items, only: [:index, :create, :new, :show, :edit, :update]
+  resources :customers, only: [:index, :show, :edit, :update]
 end
 
 get '/admins/sgin_in' => 'admin/session#new'
@@ -18,6 +19,11 @@ get '/admins/sgin_in' => 'admin/session#new'
 
 scope module: :public do
   resources :items, only: [:index, :show]
+  resources :cart_items, only: [:index, :create, :destroy, :update]
+  delete "/cart_items/destroy_all" => "cart_items#destroy_all"
+  post 'orders/confirm' => 'orders#confirm'
+  get 'orders/thanks' => 'orders#thanks'
+  resources :orders, only: [:index, :show, :new, :create]
 end
 get '/customers/sign_in' => 'public/session#new'
 get '/customers/mypage' => 'public/customers#show'

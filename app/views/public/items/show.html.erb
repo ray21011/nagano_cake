@@ -7,6 +7,14 @@
       <h2><strong><%= @item.name %></strong></h2>
       <h4><%= simple_format(@item.introduction) %></h4>
       <h3>￥<%= @item.change_price(@item.price) %>（税込）</h3>
+      <div class="item\count-form text-right">
+        <%= form_for @cart_item do |f| %>
+          <%= f.hidden_field :item_id, value: @item.id %>
+          <span id="item-count">個数</span>
+          <%= f.select :amount, *[1..1000], class: "item-count-select" %>
+          <%= f.submit "カートに入れる", class: "btn btn-primary" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
