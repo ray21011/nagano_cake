@@ -9,6 +9,8 @@ get '/admin' => 'admin/homes#top'
 namespace :admin do
   resources :items, only: [:index, :create, :new, :show, :edit, :update]
   resources :customers, only: [:index, :show, :edit, :update]
+  resources :orders, only: [:show, :update]
+  resources :order_details, only: [:update]
 end
 
 get '/admins/sgin_in' => 'admin/session#new'
@@ -24,6 +26,8 @@ scope module: :public do
   post 'orders/confirm' => 'orders#confirm'
   get 'orders/thanks' => 'orders#thanks'
   resources :orders, only: [:index, :show, :new, :create]
+  post "/orders/confirm" => "orders#confirm"
+  get "/orders/thanks" => "orders#thanks"
 end
 get '/customers/sign_in' => 'public/session#new'
 get '/customers/mypage' => 'public/customers#show'
