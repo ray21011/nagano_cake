@@ -14,7 +14,7 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="cart-destroy text-right">
-        <%= link_to "カートを空にする", @cart_items.destroy_all, method: :delete, class: "btn btn-danger" %>
+        <%= link_to "カートを空にする", cart_items_destroy_all_path, method: :delete, class: "btn btn-danger" %>
       </div>
 
       <table class="table">
@@ -28,19 +28,19 @@
       		</tr>
       	</thead>
       	<tbody>
-          <%= total_price = 0 %>
-          <%= @cart_items.each do |cart_item| %>
-            <%= tax_price = cart_item.item.price * 110 / 100 %>
-            <%= subtotal_price = tax_price * cart_item.item_count %>
+          <% total_price = 0 %>
+          <% @cart_items.each do |cart_item| %>
+            <% tax_price = cart_item.item.price * 110 / 100 %>
+            <% subtotal_price = tax_price * cart_item.amount %>
             <tr>
               <td>
-                <%= attachment_image_tag(cart_item.item, :image, size: "70x50", fallback: "no_image.jpeg") %>&nbsp;&nbsp;
+                <%= image_tag cart_item.item.get_image(80,80), format: "jpeg", fallback: "default-image.jpeg" %>&nbsp;&nbsp;
                 <%= cart_item.item.name %>
               </td>
               <td><%= tax_price.to_s(:delimited) %>円</td>
               <td>
                 <%= form_for cart_item do |f| %>
-                  <%= f.select :item_count,(1..50) %>
+                  <%= f.select :amount,(1..50) %>
                   <%= f.submit "変更する", class: "btn btn-primary" %>
                 <% end %>
               </td>

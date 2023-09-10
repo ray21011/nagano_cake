@@ -14,4 +14,9 @@ class Public::ItemsController < ApplicationController
     @word_for_search = Genri.find(params[:word_for_search])
     @search_item = Item.where(genre: params[:word_for_search])
   end
+  
+  # private
+  # def item_params
+  #   params.require(:items).permit(:name, :introduction, :price, :)
+  # end
 end
