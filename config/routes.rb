@@ -21,13 +21,13 @@ get '/admins/sgin_in' => 'admin/session#new'
 
 scope module: :public do
   resources :items, only: [:index, :show]
-  resources :cart_items, only: [:index, :create, :destroy, :update]
   delete "/cart_items/destroy_all" => "cart_items#destroy_all"
+  resources :cart_items, only: [:index, :create, :destroy, :update]
   post 'orders/confirm' => 'orders#confirm'
   get 'orders/thanks' => 'orders#thanks'
-  resources :orders, only: [:index, :show, :new, :create]
   post "/orders/confirm" => "orders#confirm"
-  get "/orders/thanks" => "orders#thanks"
+  get "/orders/complete" => "orders#complete"
+  resources :orders, only: [:index, :show, :new, :create]
 end
 get '/customers/sign_in' => 'public/session#new'
 get '/customers/mypage' => 'public/customers#show'

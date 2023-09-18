@@ -10,7 +10,7 @@ class Public::CartItemsController < ApplicationController
       items = current_customer.cart_items.pluck(:item_id)
       if items.include?(@cart_item.item_id)
         having_cart_item = CartItem.find_by(customer_id: current_customer.id, item_id: @cart_item.item_id)
-        having_cart_item.update(item_count: having_cart_item.item_count + @cart_item.item_count)
+        having_cart_item.update(item_id: having_cart_item.item_id + @cart_item.item_id)
       else
         @cart_item.customer_id = current_customer.id
         @cart_item.save
@@ -26,10 +26,10 @@ class Public::CartItemsController < ApplicationController
       redirect_to cart_items_path
   end
 
-  def all_destroy
-      current_customer.cart_items.destroy_all
-      flash[:alert] = "カート内の商品を全て削除しました。"
-      redirect_to cart_items_path
+  def destroy_all
+    CartItem.where(customer_id: current_customer.id).destroy_all
+    flash[:success] = "カートの中身を空にしました"
+    redirect_back(fallback_location: root_path)
   end
 
   def update

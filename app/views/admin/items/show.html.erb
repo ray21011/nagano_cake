@@ -8,7 +8,7 @@
           <%= image_tag @item.get_image(80,80), format: "jpeg", fallback: "default-image.jpeg" %>
       <h2><strong><%= @item.name %></strong></h2>
       <h4><%= simple_format(@item.introduction) %></h4>
-      <h3>￥<%= @item.change_price(@item.price) %> (税込)</h3>
+      <h3>￥<%= @item.change_price %> (税込)</h3>
       <%= link_to "編集する", edit_admin_item_path, class:"btn btn-success" %>
     </div>
   </div>

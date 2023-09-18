@@ -3,7 +3,15 @@ class Admin::OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @orders = Order.all
     @order_details = OrderDetail.where(order_id: @order)
-    @production_status = @order.order_details.pluck(:production_status)
+    @total_price = 0
+    @total_price_tax = 0
+    @order_details.each do |order_detail|
+    @total_price += order_detail.purchase_price * order_detail.amount
+    end
+    @order_details.each do |order_detail|
+    @total_price_tax += (order_detail.purchase_price * order_detail.amount * 1.1) + 800
+    end
+    @production_status = @order.order_details.pluck(:purchase_price)
   end
 
   def update

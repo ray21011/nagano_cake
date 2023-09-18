@@ -12,7 +12,7 @@ class Public::OrdersController < ApplicationController
 
   def new
     @order = Order.new
-    @shipping_addresses = current_customer.shipping_addresses
+    # @shipping_addresses = current_customer.shipping_addresses
   end
 
   def confirm
@@ -21,49 +21,48 @@ class Public::OrdersController < ApplicationController
     customer = current_customer
     address_option = params[:order][:address_option].to_i
 
-    @order.payment_option = params[:order][:payment_option].to_i
+    @order.payment_method = params[:order][:payment_method].to_i
     @order.temporary_information_input(customer.id)
 
     if address_option == 0
-      @order.order_in_postcode_address_name(customer.postcode, customer.address, customer.last_name)
+      @order.order_in_postal_code_address_name(customer.postal_code, customer.address, customer.last_name)
     elsif address_option == 1
       shipping = ShippingAddress.find(params[:order][:registration_shipping_address])
-      @order.order_in_postcode_address_name(shipping.shipping_postcode, shipping.shipping_address, shipping.shipping_name)
+      @order.order_in_postal_code_address_name(shipping.postal_code, shipping.address, shipping.address_name)
     elsif address_option == 2
-      @order.order_in_postcode_address_name(params[:order][:shipping_postcode], params[:order][:shipping_address], params[:order][:shipping_name])
+      @order.order_in_postal_code_address_name(params[:order][:postal_code], params[:order][:address], params[:order][:address_name])
     else
     end
-    unless @order.valid?
-      flash[:danger] = "お届け先の内容に不備があります<br>・#{@order.errors.full_messages.join('<br>・')}"
-      p @order.errors.full_messages
-      redirect_back(fallback_location: root_path)
-    end
+    # unless @order.valid?
+    #   flash[:danger] = "お届け先の内容に不備があります<br>・#{@order.errors.full_messages.join('<br>・')}"
+    #   p @order.errors.full_messages
+    #   redirect_back(fallback_location: root_path)
+    # end
     # render plain: @order.inspect
   end
 
   def create
     @order = Order.new(order_params)
     @order.customer_id = current_customer.id
-    @order.shipping_fee = 800
-    if @order.save
+    @order.postage = 800
+    if @order.save!
       @cart_items = CartItem.where(customer_id: current_customer.id)
       @cart_items.each do |cart_item|
         order_detail = OrderDetail.new
         order_detail.item_id = cart_item.item_id
         order_detail.order_id = @order.id
         order_detail.amount = cart_item.amount
-        order_detail.price_including_tax = change_price_excluding_tax(cart_item.item.price_excluding_tax)
-        order_detail.production_status = 0
-        if order_detail.save
-          @cart_items.destroy_all
-        end
+        order_detail.purchase_price = cart_item.item.change_price
+        # order_detail.order_status = 0
+        order_detail.save!
       end
-      redirect_to orders_thanks_path
+        @cart_items.destroy_all
+      redirect_to orders_complete_path
     else
     end
   end
 
-  def thanks
+  def complete
   end
 
   def show
@@ -77,7 +76,7 @@ class Public::OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:shipping_postcode, :shipping_address, :shipping_name, :total_payment, :payment_option)
+    params.require(:order).permit(:postal_code, :address, :address_name, :billing_amount, :payment_method)
   end
 
 end

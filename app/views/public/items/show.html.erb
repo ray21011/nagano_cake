@@ -6,7 +6,7 @@
     <div class="col-xs-12 col-sm-12 col-md-6 item-details mx-auto">
       <h2><strong><%= @item.name %></strong></h2>
       <h4><%= simple_format(@item.introduction) %></h4>
-      <h3>￥<%= @item.change_price(@item.price) %>（税込）</h3>
+      <h3>￥<%= @item.change_price %>（税込）</h3>
       <div class="item\count-form text-right">
         <%= form_for @cart_item do |f| %>
           <%= f.hidden_field :item_id, value: @item.id %>
