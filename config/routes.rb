@@ -14,6 +14,7 @@ namespace :admin do
 end
 
 get '/admins/sgin_in' => 'admin/session#new'
+
   devise_for :customers, skip: [:passwords], controllers: {
   registrations: "public/registrations",
   sessions: 'public/sessions'

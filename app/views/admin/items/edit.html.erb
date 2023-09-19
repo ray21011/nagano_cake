@@ -11,30 +11,30 @@
         <tr>
           <div class="form-group">
             <th><%= f.label :商品画像 %></th>
-            <tb><%= f.file_field :image %></tb>
+            <td><%= f.file_field :image %></td>
           </div>
         </tr>
         <tr>
           <div class="form-group">
             <th><%= f.label :商品名 %></th>
-            <tb><%= f.text_field :name, placeholder:"商品名" %></tb>
+            <td><%= f.text_field :name, placeholder:"商品名" %></td>
           </div>
         </tr>
         <tr>
           <div class="form-group">
             <th><%= f.label :商品説明 %></th>
-            <tb><%= f.text_area :introduction, size: "50*5", placeholder:"ここに説明文を記述します" %></tb>
+            <td><%= f.text_area :introduction, size: "50*5", placeholder:"ここに説明文を記述します" %></td>
           </div>
         </tr>
         <tr>
           <div class="form-group">
             <th><%= f.label :税抜価格 %></th>
-            <tb><%= f.text_field :price, placeholder:"1000" %>円</tb>
+            <td><%= f.text_field :price, placeholder:"1000" %>円</td>
           </div>
         </tr>
         <tr>
           <div class="form-action">
-            <tb><%= f.submit "変更を保存", class:"btn btn-success" %></tb>
+            <td><%= f.submit "変更を保存", class:"btn btn-success" %></td>
           </div>
         </tr>
       </table>
